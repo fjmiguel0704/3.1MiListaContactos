@@ -7,10 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ejemplorv.databinding.ItemContactoBinding
 
 class ContactosAdapter (private val contatos: List<Contacto>, private val contactoPulsadoListener: ContactoPulsadoListener): RecyclerView.Adapter<ContactosAdapter.ViewHolder>() {
-    class ViewHolder(private val binding: ItemContactoBinding):RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val bindingItemContactos: ItemContactoBinding):RecyclerView.ViewHolder(bindingItemContactos.root){
         fun bind (contacto:Contacto){
-            binding.textViewNombre.text = contacto.nombre
-            binding.textViewContacto.text = contacto.tfno
+            var iniciales: String = ""
+            val separador: List<String> = contacto.nombre.split(" ")
+            for (nombre: String in separador){
+                iniciales += nombre[0]
+            }
+
+            bindingItemContactos.textViewNombre.text = iniciales
+            bindingItemContactos.textViewContacto.text = contacto.tfno
+
+            if (contacto.genero.equals("Mujer")){
+                bindingItemContactos.iconPerson.setImageResource(R.drawable.iconmujer)
+            }
         }
     }
 
